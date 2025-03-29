@@ -26,12 +26,12 @@ export class GameScene extends Phaser.Scene {
     }
 
     create() {
-        const sprite = this.add.sprite(100, 100, 'player', 0);
+        const sprite = this.add.sprite(0, 0, 'player', 0);
 
         this.player = new Entity();
         this.player.add('velocity', new VelocityComponent(400));
-        this.player.add('position', new PositionComponent(300, 200));
-        this.player.add('input', new InputComponent(new Set<string>()));
+        this.player.add('position', new PositionComponent(300, 300));
+        this.player.add('input', new InputComponent());
         this.player.add('sprite', new SpriteComponent(sprite));
 
         this.movement = new MovementSystem();
@@ -44,6 +44,6 @@ export class GameScene extends Phaser.Scene {
         const dt = deltaTime / 1000;
         this.movement.update([this.player], dt);
         this.render.update([this.player]);
-        this.inputSystem.update(this.player);
+        this.inputSystem.update([this.player]);
     }
 }

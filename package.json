@@ -1,10 +1,10 @@
 {
-  "name": "prototype-03",
+  "name": "prototype-04",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "main": "src/config/electron/main.js",
-  "description": "prototype-03 description",
+  "description": "prototype-04 description",
   "scripts": {
     "start:dev:web": "vite",
     "start:dev:desktop": "npm run build && electron . --enable-accelerated-2d-canvas --enable-gpu-rasterization -disable-software-rasterizer",
@@ -20,12 +20,12 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
-    "kanji-ecs": "^0.0.8",
+    "kanji-ecs": "^0.0.10",
     "phaser": "^3.88.2"
   },
   "build": {
-    "appId": "com.prototype-03.app",
-    "productName": "prototype-03",
+    "appId": "com.prototype-04.app",
+    "productName": "prototype-04",
     "files": [
       "dist/**/*",
       "src/config/electron/main.js"

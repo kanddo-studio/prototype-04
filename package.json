@@ -1,0 +1,42 @@
+{
+  "name": "prototype-03",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "src/config/electron/main.js",
+  "description": "prototype-03 description",
+  "scripts": {
+    "start:dev:web": "vite",
+    "start:dev:desktop": "npm run build && electron . --enable-accelerated-2d-canvas --enable-gpu-rasterization -disable-software-rasterizer",
+    "build": "tsc && vite build",
+    "build:prod:web": "npm run build",
+    "build:prod:windows": "npm run build && electron-builder --win",
+    "start:prod:web": "npm run build && vite preview"
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^25.1.8",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "phaser": "^3.88.2"
+  },
+  "build": {
+    "appId": "com.prototype-03.app",
+    "productName": "prototype-03",
+    "files": [
+      "dist/**/*",
+      "src/config/electron/main.js"
+    ],
+    "directories": {
+      "output": "build-desktop"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "src/assets/icon.ico"
+    }
+  }
+}

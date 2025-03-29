@@ -1,9 +1,12 @@
-import { PlayerEntity } from '../entities/Player';
-import { MovementSystem } from '../systems/MovementSystem';
 import Phaser from 'phaser';
 
+import { PlayerEntity } from 'kanji-ecs/entities';
+
+import { MovementSystem } from 'kanji-ecs/systems';
+
+
 export class GameScene extends Phaser.Scene {
-    player!: PlayerEntity;
+    playerEntity!: PlayerEntity;
     movementSystem!: MovementSystem;
 
 
@@ -16,13 +19,13 @@ export class GameScene extends Phaser.Scene {
     }
 
     create() {
-        this.player = new PlayerEntity({ scene: this, x: 100, y: 300});
+        this.playerEntity = new PlayerEntity({ scene: this, x: 100, y: 300});
         this.movementSystem = new MovementSystem({ scene: this });
     }
 
     update(_time: number, deltaTime: number) {
         const dt = deltaTime / 1000;
 
-        this.movementSystem.update({ player: this.player, deltaTime: dt });
+        this.movementSystem.update({ player: this.playerEntity, deltaTime: dt });
     }
 }

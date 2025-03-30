@@ -12,12 +12,14 @@ function createWindow() {
     width: 1080,
     height: 720,
     webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
+      nodeIntegration: true,
+      contextIsolation: false,
       enableWebGL2: true,
+      accelerator: 'gpu'
     },
     transparent: false,
-    frame: true
+    frame: true,
+    icon: path.join(__dirname, 'public/icon.png')
   });
 
   if (process.env.NODE_ENV === 'development') {

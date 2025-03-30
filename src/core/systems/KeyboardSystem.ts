@@ -8,17 +8,18 @@ export class KeyboardSystem implements System {
     constructor(scene: Phaser.Scene) {
         if (scene.input.keyboard) {
             this.cursors = scene.input.keyboard.createCursorKeys();
-        } else {
-            throw new Error("Keyboard input is not available in the scene.");
+            return;
         }
+        throw new Error('Error: Missing Keyboard Input in the Scene');
     }
 
     update(entities: Entity[]) {
         entities.forEach(entity => {
-
             const inputComponent = entity.get<InputComponent>('input');
 
-            if (!inputComponent) return;
+            if (!inputComponent) {
+                throw new Error('Error: Missing Component Dependency');
+            }
 
             if (this.cursors.left?.isDown) {
                 inputComponent.keys.add('ArrowLeft');

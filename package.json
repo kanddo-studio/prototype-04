@@ -18,7 +18,7 @@
     "start:prod:web": "npm run build && vite preview"
   },
   "devDependencies": {
-    "kanji-ecs": "^0.0.14",
+    "kanji-ecs": "^0.0.15",
     "electron": "^35.0.0",
     "electron-builder": "^25.1.8",
     "typescript": "~5.8.2",

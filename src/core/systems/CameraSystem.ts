@@ -4,9 +4,6 @@ import { CameraComponent } from "../components/CameraComponent";
 
 export class CameraSystem {
     constructor(private scene: Phaser.Scene, private entity: Entity) {
-        this.scene = scene;
-        this.entity = entity;
-
         this.scene.input.on(
             'wheel',
             (
@@ -18,7 +15,9 @@ export class CameraSystem {
             ) => {
                 const cameraComponent = this.entity.get<CameraComponent>('camera');
 
-                if (!cameraComponent) return;
+                if (!cameraComponent) {
+                    throw new Error('Error: Missing Component Dependency');
+                }
 
                 const zoomFactor = 0.1;
                 if (deltaY > 0) {
@@ -40,7 +39,9 @@ export class CameraSystem {
 
         this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             const cameraComponent = this.entity.get<CameraComponent>('camera');
-            if (!cameraComponent) return;
+            if (!cameraComponent) {
+                throw new Error('Error: Missing Component Dependency');
+            }
 
             cameraComponent.isDragging = true;
             cameraComponent.dragStartX = pointer.worldX;
@@ -52,32 +53,38 @@ export class CameraSystem {
 
         this.scene.input.on('pointerup', () => {
             const cameraComponent = this.entity.get<CameraComponent>('camera');
-            if (!cameraComponent) return;
+            const positionComponent = this.entity.get<PositionComponent>('position');
+            
+            if (!cameraComponent || !positionComponent) {
+                throw new Error('Error: Missing Component Dependency');
+            }
 
             cameraComponent.isDragging = false;
-
             cameraComponent.isFollowActive = true;
-
-            const positionComponent = this.entity.get<PositionComponent>('position');
-            if (cameraComponent.isFollowActive && positionComponent) {
-                scene.cameras.main.startFollow(positionComponent);
-            }
+            scene.cameras.main.startFollow(positionComponent);
         });
 
         this.scene.input.on('pointerupoutside', () => {
             const cameraComponent = this.entity.get<CameraComponent>('camera');
             const positionComponent = this.entity.get<PositionComponent>('position');
-
-            if (cameraComponent && positionComponent) {
-                cameraComponent.isDragging = false;
-                scene.cameras.main.startFollow(positionComponent);
-
+            
+            if (!cameraComponent || !positionComponent) {
+                throw new Error('Error: Missing Component Dependency');
             }
+
+            cameraComponent.isDragging = false;
+            cameraComponent.isFollowActive = true;
+            scene.cameras.main.startFollow(positionComponent);
         });
 
         this.scene.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
             const cameraComponent = this.entity.get<CameraComponent>('camera');
-            if (!cameraComponent || !cameraComponent.isDragging) return;
+
+            if (!cameraComponent) {
+                throw new Error('Error: Missing Component Dependency');
+            }
+
+            if (!cameraComponent.isDragging) return;
 
             const camera = scene.cameras.main;
             const dragX = pointer.worldX - cameraComponent.dragStartX;
@@ -96,11 +103,12 @@ export class CameraSystem {
         const cameraComponent = this.entity.get<CameraComponent>('camera');
         const positionComponent = this.entity.get<PositionComponent>('position');
 
-        if (cameraComponent && positionComponent && !cameraComponent.isDragging) {
+        if (!cameraComponent || !positionComponent) {
+            throw new Error('Error: Missing Component Dependency');
+        }
 
-            if (cameraComponent.isFollowActive) {
-                this.scene.cameras.main.startFollow(positionComponent);
-            }
+        if (!cameraComponent.isDragging && cameraComponent.isFollowActive) {
+            this.scene.cameras.main.startFollow(positionComponent);
         }
     }
 }

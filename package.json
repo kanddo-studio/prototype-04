@@ -20,7 +20,7 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
-    "kanji-ecs": "^0.0.10",
+    "kanji-ecs": "^0.0.14",
     "phaser": "^3.88.2"
   },
   "build": {

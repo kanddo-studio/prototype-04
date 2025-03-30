@@ -16,7 +16,7 @@ export class InputSystem implements System {
     update(entities: Entity[]) {
         entities.forEach(entity => {
 
-            const inputComponent = entity.get('input') as InputComponent;
+            const inputComponent = entity.get<InputComponent>('input');
 
             if (!inputComponent) return;
 

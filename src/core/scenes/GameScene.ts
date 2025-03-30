@@ -8,12 +8,19 @@ import { PositionComponent, VelocityComponent, InputComponent } from 'kanji-ecs/
 
 import { SpriteComponent } from '../components/SpriteComponent';
 import { RenderSystem } from '../systems/RenderSystem';
-import { InputSystem } from '../systems/InputSystem';
+import { KeyboardSystem } from '../systems/KeyboardSystem';
+import { CameraSystem } from '../systems/CameraSystem';
+import { CameraComponent } from '../components/CameraComponent';
+
+
+import * as Utils from '../utils';
+
 export class GameScene extends Phaser.Scene {
     player!: Entity;
-    movement!: MovementSystem;
-    render!: RenderSystem;
-    inputSystem!: InputSystem;
+    movementSystem!: MovementSystem;
+    renderSystem!: RenderSystem;
+    keyboardSystem!: KeyboardSystem;
+    cameraSystem!: CameraSystem;
 
     constructor() {
         super('game-scene');
@@ -26,49 +33,34 @@ export class GameScene extends Phaser.Scene {
     create() {
         const worldSize = 400;
         this.physics.world.setBounds(0, 0, worldSize, worldSize);
-        this.createGrid(worldSize);
+        Utils.createGrid(this, worldSize);
 
 
         const sprite = this.add.sprite(0, 0, 'player', 0);
 
+        // Entities
         this.player = new Entity();
+
+        // Components
         this.player.add('velocity', new VelocityComponent(400));
         this.player.add('position', new PositionComponent(200, 200));
         this.player.add('input', new InputComponent());
         this.player.add('sprite', new SpriteComponent(sprite));
+        this.player.add('camera', new CameraComponent());
 
-        this.movement = new MovementSystem();
-        this.render = new RenderSystem();
-        this.inputSystem = new InputSystem(this);
-
-
-        this.cameras.main.startFollow(this.player.get<SpriteComponent>('sprite').sprite);
-        this.cameras.main.setLerp(0.1, 0.1);
-        this.cameras.main.setZoom(1);
-    }
-
-    createGrid(worldSize: number) {
-        const graphics = this.add.graphics();
-        graphics.lineStyle(1, 0x444444);
-
-        for (let y = 0; y <= worldSize; y += 100) {
-            graphics.moveTo(0, y);
-            graphics.lineTo(worldSize, y);
-        }
-
-        for (let x = 0; x <= worldSize; x += 100) {
-            graphics.moveTo(x, 0);
-            graphics.lineTo(x, worldSize);
-        }
-
-        graphics.strokePath();
+        // Systems
+        this.movementSystem = new MovementSystem();
+        this.renderSystem = new RenderSystem();
+        this.keyboardSystem = new KeyboardSystem(this);
+        this.cameraSystem = new CameraSystem(this, this.player);
     }
 
 
     update(_time: number, deltaTime: number) {
         const dt = deltaTime / 1000;
-        this.movement.update([this.player], dt);
-        this.render.update([this.player]);
-        this.inputSystem.update([this.player]);
+        this.movementSystem.update([this.player], dt);
+        this.renderSystem.update([this.player]);
+        this.keyboardSystem.update([this.player]);
+        this.cameraSystem.update();
     }
 }

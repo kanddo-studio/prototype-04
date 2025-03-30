@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 
 import { Entity, InputComponent, System } from 'kanji-ecs';
 
-export class InputSystem implements System {
+export class KeyboardSystem implements System {
     cursors: Phaser.Types.Input.Keyboard.CursorKeys;
 
     constructor(scene: Phaser.Scene) {

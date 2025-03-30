@@ -5,6 +5,10 @@
   "type": "module",
   "main": "src/config/electron/main.js",
   "description": "prototype-04 description",
+  "author": {
+    "name": "Kanddo",
+    "url": "https://github.com/kanddo-studio"
+  },
   "scripts": {
     "start:dev:web": "vite",
     "start:dev:desktop": "npm run build && electron . --enable-accelerated-2d-canvas --enable-gpu-rasterization -disable-software-rasterizer",
@@ -26,18 +30,25 @@
   "build": {
     "appId": "com.prototype-04.app",
     "productName": "prototype-04",
+    "icon": "assets/icon.ico",
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        "nsis"
+      ]
+    },
+    "mac": {
+      "icon": "assets/icon.icns"
+    },
+    "linux": {
+      "icon": "assets/icon.png"
+    },
     "files": [
       "dist/**/*",
       "src/config/electron/main.js"
     ],
     "directories": {
       "output": "build-desktop"
-    },
-    "win": {
-      "target": [
-        "nsis"
-      ],
-      "icon": "src/assets/icon.ico"
     }
   }
 }

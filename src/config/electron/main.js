@@ -19,7 +19,7 @@ function createWindow() {
     },
     transparent: false,
     frame: true,
-    icon: path.join(__dirname, 'public/icon.png')
+    icon: path.join(path.join(__dirname, "..", "..", "..", 'dist', 'assets', 'images', 'icon.png'))
   });
 
   if (process.env.NODE_ENV === 'development') {

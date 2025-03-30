@@ -11,12 +11,17 @@ import {
 } from "kanji-ecs/components";
 
 import { SpriteComponent } from "../components/SpriteComponent";
-import { RenderSystem } from "../systems/RenderSystem";
-import { KeyboardSystem } from "../systems/KeyboardSystem";
-import { CameraSystem } from "../systems/CameraSystem";
 import { CameraComponent } from "../components/CameraComponent";
 
+import { RenderSystem } from "../systems/RenderSystem";
+import { KeyboardSystem } from "../systems/KeyboardSystem";
+import { CameraSystem } from "../systems/Camera/CameraSystem";
+import { CameraZoomSystem } from "../systems/Camera/CameraZoomSystem";
+import { CameraDragNDropSystem } from "../systems/Camera/CameraDragNDropSystem";
+
 import * as Utils from "../utils";
+
+
 
 export class GameScene extends Phaser.Scene {
   player!: Entity;
@@ -24,6 +29,8 @@ export class GameScene extends Phaser.Scene {
   renderSystem!: RenderSystem;
   keyboardSystem!: KeyboardSystem;
   cameraSystem!: CameraSystem;
+  cameraZoomSystem!: CameraZoomSystem;
+  cameraDragNDropSystem!: CameraDragNDropSystem;
 
   constructor() {
     super("game-scene");
@@ -55,6 +62,8 @@ export class GameScene extends Phaser.Scene {
     this.renderSystem = new RenderSystem();
     this.keyboardSystem = new KeyboardSystem(this);
     this.cameraSystem = new CameraSystem(this, this.player);
+    this.cameraZoomSystem = new CameraZoomSystem(this, this.player);
+    this.cameraDragNDropSystem = new CameraDragNDropSystem(this, this.player);
   }
 
   update(_time: number, deltaTime: number) {

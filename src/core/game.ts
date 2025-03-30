@@ -1,4 +1,4 @@
-import "./styles/global.css";
+import "../styles/global.css";
 import Phaser from "phaser";
 
 import { GameScene } from "./scenes/GameScene";

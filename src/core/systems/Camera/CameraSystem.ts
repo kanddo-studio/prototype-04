@@ -3,7 +3,10 @@ import { Entity, PositionComponent } from "kanji-ecs";
 import { CameraComponent } from "../../components/CameraComponent";
 
 export class CameraSystem {
-  constructor(private scene: Phaser.Scene, private entity: Entity) {}
+  constructor(
+    private scene: Phaser.Scene,
+    private entity: Entity,
+  ) {}
 
   update() {
     const cameraComponent = this.entity.get<CameraComponent>("camera");

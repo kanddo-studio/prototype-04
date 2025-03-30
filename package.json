@@ -10,9 +10,9 @@
     "url": "https://github.com/kanddo-studio"
   },
   "scripts": {
-    "start:dev:web": "vite",
-    "start:dev:desktop": "npm run build && electron . --enable-accelerated-2d-canvas --enable-gpu-rasterization -disable-software-rasterizer",
-    "build": "tsc && vite build",
+    "start:dev:web": "NODE_ENV=development vite",
+    "start:dev:desktop": "NODE_ENV=development electron . --enable-accelerated-2d-canvas --enable-gpu-rasterization -disable-software-rasterizer",
+    "build": "NODE_ENV=production tsc && vite build",
     "build:prod:web": "npm run build",
     "build:prod:windows": "npm run build && electron-builder --win",
     "start:prod:web": "npm run build && vite preview",
@@ -21,10 +21,10 @@
   },
   "devDependencies": {
     "kanji-ecs": "^0.0.16",
-    "electron": "^35.0.0",
-    "electron-builder": "^25.1.8",
+    "electron": "^35.1.2",
+    "electron-builder": "^26.0.12",
     "typescript": "~5.8.2",
-    "vite": "^6.2.0"
+    "vite": "^6.2.3"
   },
   "dependencies": {
     "phaser": "^3.88.2"

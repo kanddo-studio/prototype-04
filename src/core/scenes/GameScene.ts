@@ -21,8 +21,6 @@ import { CameraDragNDropSystem } from "../systems/Camera/CameraDragNDropSystem";
 
 import * as Utils from "../utils";
 
-
-
 export class GameScene extends Phaser.Scene {
   player!: Entity;
   movementSystem!: MovementSystem;

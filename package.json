@@ -15,10 +15,12 @@
     "build": "tsc && vite build",
     "build:prod:web": "npm run build",
     "build:prod:windows": "npm run build && electron-builder --win",
-    "start:prod:web": "npm run build && vite preview"
+    "start:prod:web": "npm run build && vite preview",
+    "lint:prettier": "npx prettier --write .",
+    "lint:fix": "npm run lint:prettier"
   },
   "devDependencies": {
-    "kanji-ecs": "^0.0.15",
+    "kanji-ecs": "^0.0.16",
     "electron": "^35.0.0",
     "electron-builder": "^25.1.8",
     "typescript": "~5.8.2",

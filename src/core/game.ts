@@ -1,28 +1,28 @@
-import './styles/global.css';
-import Phaser from 'phaser';
+import "./styles/global.css";
+import Phaser from "phaser";
 
-import { GameScene } from './core/scenes/GameScene';
+import { GameScene } from "./scenes/GameScene";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
   width: 800,
   height: 600,
-  powerPreference: 'high-performance',
+  powerPreference: "high-performance",
   antialias: false,
-  parent: 'app',
+  parent: "app",
   roundPixels: true,
   fps: {
     target: 60,
     forceSetTimeOut: true,
-    min: 30
+    min: 30,
   },
   scene: GameScene,
   physics: {
-    default: 'arcade',
+    default: "arcade",
     arcade: {
       debug: true,
-    }
-  }
+    },
+  },
 };
 
 function init() {

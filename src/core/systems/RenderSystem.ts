@@ -6,16 +6,15 @@ import { SpriteComponent } from "../components/SpriteComponent";
 
 export class RenderSystem implements System {
   update(entities: Entity[]) {
-    entities.forEach(entity => {
-      const spriteComponent = entity.get<SpriteComponent>('sprite');
+    entities.forEach((entity) => {
+      const spriteComponent = entity.get<SpriteComponent>("sprite");
 
       if (!spriteComponent) {
-        throw new Error('Error: Missing Component Dependency');
+        throw new Error("Error: Missing Component Dependency");
       }
 
-      spriteComponent.sprite.x = entity.get<PositionComponent>('position').x;
-      spriteComponent.sprite.y = entity.get<PositionComponent>('position').y;
-
+      spriteComponent.sprite.x = entity.get<PositionComponent>("position").x;
+      spriteComponent.sprite.y = entity.get<PositionComponent>("position").y;
     });
   }
 }

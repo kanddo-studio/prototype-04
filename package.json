@@ -30,18 +30,18 @@
   "build": {
     "appId": "com.prototype-04.app",
     "productName": "prototype-04",
-    "icon": "assets/icon.ico",
+    "icon": "public/assets/images/icons/icon.ico",
     "win": {
-      "icon": "assets/icon.ico",
+      "icon": "public/assets/images/icons/icon.ico",
       "target": [
         "nsis"
       ]
     },
     "mac": {
-      "icon": "assets/icon.icns"
+      "icon": "public/assets/images/icons/icon.icns"
     },
     "linux": {
-      "icon": "assets/icon.png"
+      "icon": "public/assets/images/icons/icon.png"
     },
     "files": [
       "dist/**/*",
